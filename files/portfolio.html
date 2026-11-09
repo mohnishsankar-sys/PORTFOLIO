@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Developer Portfolio</title>
+    
+    <!-- Fonts: Inter for general text, Fira Code for tech tags -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind Configuration & Custom Styles -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        brand: {
+                            cyan: '#06b6d4',
+                            violet: '#8b5cf6',
+                            fuchsia: '#d946ef',
+                            orange: '#f97316'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #8b5cf6, #d946ef, #f97316);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden selection:bg-brand-fuchsia selection:text-white relative bg-slate-50 text-slate-900">
+
+    <!-- Background glow effects -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-cyan/20 rounded-full mix-blend-multiply filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-fuchsia/20 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-32 left-1/3 w-96 h-96 bg-brand-orange/20 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Navbar -->
+        <!-- Navbar -->
+        <header class="fixed top-0 w-full z-50 glass transition-all duration-300" id="navbar">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="#" class="text-2xl font-bold tracking-tighter flex items-center gap-2 group">
+                            <div class="w-8 h-8 rounded bg-gradient-to-br from-brand-violet to-brand-fuchsia text-white flex items-center justify-center font-mono font-bold shadow-lg group-hover:shadow-brand-fuchsia/50 transition-all">
+                                {' '}
+                            </div>
+                            <span class="text-slate-900">Dev<span class="text-brand-fuchsia">.</span>Portfolio</span>
+                        </a>
+                    </div>
+    
+                    <!-- Desktop Menu -->
+                    <nav class="hidden md:flex space-x-8 items-center">
+                        <a href="#work" class="text-slate-600 hover:text-brand-violet text-sm font-medium transition-colors">Work</a>
+                        <a href="#expertise" class="text-slate-600 hover:text-brand-violet text-sm font-medium transition-colors">Expertise</a>
+                        <a href="#process" class="text-slate-600 hover:text-brand-violet text-sm font-medium transition-colors">Process</a>
+                        <a href="#contact" class="text-slate-600 hover:text-brand-violet text-sm font-medium transition-colors">Contact</a>
+                        <a href="#contact" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-brand-violet to-brand-fuchsia hover:from-brand-fuchsia hover:to-brand-orange text-white font-semibold text-sm transition-all shadow-[0_0_15px_rgba(217,70,239,0.3)] hover:shadow-[0_0_25px_rgba(217,70,239,0.5)]">
+                            Hire Me
+                        </a>
+                    </nav>
+    
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden flex items-center">
+                        <button id="mobile-menu-btn" class="text-slate-600 hover:text-brand-violet focus:outline-none p-2">
+                            <i class="ph ph-list text-2xl" id="menu-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Mobile Menu Panel -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg border-b border-slate-200 shadow-xl">
+                <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                    <a href="#work" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-slate-600 hover:text-brand-violet hover:bg-slate-50">Work</a>
+                    <a href="#expertise" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-slate-600 hover:text-brand-violet hover:bg-slate-50">Expertise</a>
+                    <a href="#process" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-slate-600 hover:text-brand-violet hover:bg-slate-50">Process</a>
+                    <a href="#contact" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-slate-600 hover:text-brand-violet hover:bg-slate-50">Contact</a>
+                    <a href="#contact" class="mobile-link mt-4 block w-full text-center px-5 py-3 rounded-md bg-gradient-to-r from-brand-violet to-brand-fuchsia text-white font-bold shadow-lg">Hire Me</a>
+                </div>
+            </div>
+        </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10">
+        
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center pt-20 overflow-hidden relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+                    
+                    <!-- Left: Content -->
+                    <div class="order-2 lg:order-1 pt-10 lg:pt-0" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200 text-brand-violet text-xs font-bold font-mono mb-6 shadow-sm">
+                            <span class="relative flex h-2 w-2">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-violet opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-fuchsia"></span>
+                            </span>
+                            Available for new projects
+                        </div>
+                        
+                        <h1 class="text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1] text-slate-900">
+                            Building fast, <br class="hidden sm:block">
+                            <span class="text-gradient">scalable web</span> <br>
+                            applications.
+                        </h1>
+                        
+                        <p class="text-lg sm:text-xl text-slate-600 mb-8 max-w-xl leading-relaxed">
+                            I am a senior full-stack developer specializing in modern web technologies to build products that solve real business problems and drive results.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#work" class="flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-brand-violet to-brand-fuchsia hover:from-brand-fuchsia hover:to-brand-orange text-white font-semibold transition-all shadow-[0_0_15px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(217,70,239,0.4)]">
+                                View Projects
+                                <i class="ph ph-arrow-right font-bold"></i>
+                            </a>
+                            <a href="#contact" class="flex items-center justify-center px-7 py-3.5 rounded-full bg-white border-2 border-slate-200 hover:border-brand-violet hover:text-brand-violet text-slate-700 font-bold transition-all shadow-sm">
+                                Contact Me
+                            </a>
+                        </div>
+                        
+                        <!-- Mini social proofs / stats -->
+                        <div class="mt-12 pt-8 border-t border-slate-200 flex flex-wrap gap-8">
+                            <div>
+                                <h4 class="text-3xl font-extrabold text-slate-900 mb-1">5+</h4>
+                                <p class="text-sm text-slate-500 font-mono font-medium">Years Exp.</p>
+                            </div>
+                            <div>
+                                <h4 class="text-3xl font-extrabold text-slate-900 mb-1">40+</h4>
+                                <p class="text-sm text-slate-500 font-mono font-medium">Projects</p>
+                            </div>
+                            <div>
+                                <h4 class="text-3xl font-extrabold text-slate-900 mb-1">100%</h4>
+                                <p class="text-sm text-slate-500 font-mono font-medium">Client Success</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Abstract Visual -->
+                    <div class="order-1 lg:order-2 flex justify-center lg:justify-end" data-aos="fade-in" data-aos-duration="1500" data-aos-delay="200">
+                        <div class="relative w-72 h-72 sm:w-96 sm:h-96 animate-float">
+                            <!-- Abstract geometric composition -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand-cyan/30 via-brand-violet/30 to-brand-orange/30 rounded-full blur-3xl"></div>
+                            
+                            <!-- Main shape -->
+                            <div class="absolute inset-4 rounded-[2rem] bg-white/90 backdrop-blur-md border border-slate-200 shadow-2xl flex flex-col overflow-hidden rotate-3 hover:rotate-0 transition-transform duration-500">
+                                <!-- Fake editor header -->
+                                <div class="h-10 bg-slate-50 border-b border-slate-200 flex items-center px-4 gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                                    <div class="ml-4 text-xs font-mono text-slate-400">developer.js</div>
+                                </div>
+                                <!-- Fake code blocks -->
+                                <div class="p-6 font-mono text-xs sm:text-sm text-slate-600 space-y-3">
+                                    <div class="flex gap-4"><span class="text-brand-violet font-bold">const</span> <span class="text-brand-cyan font-bold">developer</span> <span class="text-slate-500">=</span> <span class="text-slate-900">{</span></div>
+                                    <div class="pl-6 flex gap-4"><span class="text-slate-700">name:</span> <span class="text-emerald-600">'Senior Engineer'</span><span class="text-slate-500">,</span></div>
+                                    <div class="pl-6 flex gap-4"><span class="text-slate-700">skills:</span> <span class="text-slate-900">[</span><span class="text-emerald-600">'React'</span><span class="text-slate-500">,</span> <span class="text-emerald-600">'Node.js'</span><span class="text-slate-900">]</span><span class="text-slate-500">,</span></div>
+                                    <div class="pl-6 flex gap-4"><span class="text-slate-700">drivenBy:</span> <span class="text-emerald-600">'Business Value'</span></div>
+                                    <div class="flex"><span class="text-slate-900">}</span><span class="text-slate-500">;</span></div>
+                                    <br>
+                                    <div class="flex gap-4"><span class="text-brand-violet font-bold">await</span> <span class="text-brand-cyan">developer</span><span class="text-slate-700">.</span><span class="text-brand-fuchsia">buildFuture</span><span class="text-slate-900">()</span><span class="text-slate-500">;</span></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Floating decorative elements -->
+                            <div class="absolute -right-4 top-12 p-3 rounded-xl bg-white border border-slate-200 shadow-xl flex items-center justify-center animate-bounce" style="animation-duration: 3s;">
+                                <i class="ph ph-atom text-3xl text-brand-fuchsia"></i>
+                            </div>
+                            <div class="absolute -left-6 bottom-20 p-3 rounded-xl bg-white border border-slate-200 shadow-xl flex items-center justify-center animate-bounce" style="animation-duration: 4s; animation-delay: 1s;">
+                                <i class="ph ph-database text-3xl text-brand-cyan"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expertise / Tech Stack Section -->
+        <!-- Expertise / Tech Stack Section -->
+        <section id="expertise" class="py-24 bg-white border-y border-slate-200 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+                    <h2 class="text-sm font-mono text-brand-fuchsia uppercase tracking-widest mb-2 font-bold">Technical Arsenal</h2>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900">The tools I use to build scalable solutions</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Frontend -->
+                    <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-cyan hover:shadow-xl hover:shadow-brand-cyan/10 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-14 h-14 rounded-xl bg-cyan-100 flex items-center justify-center mb-6 shadow-inner">
+                            <i class="ph ph-browser text-3xl text-brand-cyan"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-4 text-slate-900">Frontend Development</h4>
+                        <p class="text-slate-600 mb-6 text-sm">Building highly interactive, accessible, and performant user interfaces.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="font-mono text-xs font-semibold text-cyan-700 bg-cyan-100 px-3 py-1.5 rounded-full border border-cyan-200">HTML5</span>
+                            <span class="font-mono text-xs font-semibold text-cyan-700 bg-cyan-100 px-3 py-1.5 rounded-full border border-cyan-200">CSS3</span>
+                            <span class="font-mono text-xs font-semibold text-cyan-700 bg-cyan-100 px-3 py-1.5 rounded-full border border-cyan-200">Tailwind CSS</span>
+                            <span class="font-mono text-xs font-semibold text-cyan-700 bg-cyan-100 px-3 py-1.5 rounded-full border border-cyan-200">JavaScript</span>
+                        </div>
+                    </div>
+
+                    <!-- Backend -->
+                    <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 hover:border-brand-violet hover:shadow-xl hover:shadow-brand-violet/10 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-14 h-14 rounded-xl bg-violet-100 flex items-center justify-center mb-6 shadow-inner">
+                            <i class="ph ph-hard-drives text-3xl text-brand-violet"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-4 text-slate-900">Backend Engineering</h4>
+                        <p class="text-slate-600 mb-6 text-sm">Architecting secure, scalable, and robust server-side applications and APIs.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="font-mono text-xs font-semibold text-violet-700 bg-violet-100 px-3 py-1.5 rounded-full border border-violet-200">Node.js</span>
+                            <span class="font-mono text-xs font-semibold text-violet-700 bg-violet-100 px-3 py-1.5 rounded-full border border-violet-200">Express</span>
+                            <span class="font-mono text-xs font-semibold text-violet-700 bg-violet-100 px-3 py-1.5 rounded-full border border-violet-200">Python</span>
+                            <span class="font-mono text-xs font-semibold text-violet-700 bg-violet-100 px-3 py-1.5 rounded-full border border-violet-200">Java</span>
+                            <span class="font-mono text-xs font-semibold text-violet-700 bg-violet-100 px-3 py-1.5 rounded-full border border-violet-200">C</span>
+                        </div>
+                    </div>
+
+                    <!-- Database & Infra -->
+                    <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-400 hover:shadow-xl hover:shadow-emerald-400/10 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-14 h-14 rounded-xl bg-emerald-100 flex items-center justify-center mb-6 shadow-inner">
+                            <i class="ph ph-database text-3xl text-emerald-500"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-4 text-slate-900">Database Management</h4>
+                        <p class="text-slate-600 mb-6 text-sm">Designing efficient data schemas and optimizing queries for fast retrieval.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="font-mono text-xs font-semibold text-emerald-700 bg-emerald-100 px-3 py-1.5 rounded-full border border-emerald-200">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects Section -->
+        <!-- Featured Projects Section -->
+        <section id="work" class="py-24 bg-slate-50 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-16 md:flex md:items-end md:justify-between" data-aos="fade-up">
+                    <div class="max-w-2xl">
+                        <h2 class="text-sm font-mono text-brand-orange uppercase tracking-widest mb-2 font-bold">Featured Work</h2>
+                        <h3 class="text-3xl md:text-5xl font-extrabold text-slate-900">Selected Projects</h3>
+                    </div>
+                    <div class="mt-4 md:mt-0 hidden sm:block">
+                        <p class="text-slate-600 font-medium">Real-world solutions driving real-world results.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-12">
+                    
+                    <!-- Project 1 -->
+                    <div class="group relative rounded-3xl bg-white border border-slate-200 overflow-hidden flex flex-col lg:flex-row transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.2)] hover:border-brand-violet/30" data-aos="fade-up">
+                        <div class="lg:w-1/2 p-2 sm:p-6 lg:p-8 bg-slate-50/50">
+                            <div class="w-full h-64 sm:h-80 rounded-2xl overflow-hidden relative shadow-md">
+                                <img src="https://placehold.co/800x600/e2e8f0/8b5cf6?text=SnippetStack\nApp+Interface" alt="SnippetStack Interface" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <div class="absolute inset-0 bg-brand-violet/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/2 p-6 sm:p-8 lg:py-16 flex flex-col justify-center">
+                            <h4 class="text-2xl sm:text-3xl font-extrabold mb-4 text-slate-900 group-hover:text-brand-violet transition-colors">SnippetStack</h4>
+                            <p class="text-slate-600 mb-6 leading-relaxed">
+                                A centralized platform for development teams to save, organize, and share reusable code snippets. Reduced onboarding time for new developers and eliminated redundant problem-solving across cross-functional teams.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="font-mono text-xs font-semibold text-violet-700 bg-violet-100 px-3 py-1 rounded-full border border-violet-200">Node.js</span>
+                                <span class="font-mono text-xs font-semibold text-violet-700 bg-violet-100 px-3 py-1 rounded-full border border-violet-200">Express</span>
+                                <span class="font-mono text-xs font-semibold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-200">MongoDB</span>
+                                <span class="font-mono text-xs font-semibold text-cyan-700 bg-cyan-100 px-3 py-1 rounded-full border border-cyan-200">JavaScript</span>
+                            </div>
+                            <div class="flex gap-4 mt-auto">
+                                <a href="#" class="flex items-center gap-2 text-sm font-bold text-brand-violet hover:text-brand-fuchsia transition-colors">
+                                    <i class="ph ph-arrow-square-out text-xl"></i> Live Demo
+                                </a>
+                                <a href="#" class="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors">
+                                    <i class="ph ph-github-logo text-xl"></i> Source Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="group relative rounded-3xl bg-white border border-slate-200 overflow-hidden flex flex-col lg:flex-row-reverse transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(217,70,239,0.2)] hover:border-brand-fuchsia/30" data-aos="fade-up">
+                        <div class="lg:w-1/2 p-2 sm:p-6 lg:p-8 bg-slate-50/50">
+                            <div class="w-full h-64 sm:h-80 rounded-2xl overflow-hidden relative shadow-md">
+                                <img src="https://placehold.co/800x600/e2e8f0/d946ef?text=Digital+Visiting+Card\nMobile+View" alt="Digital Visiting Card Platform" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <div class="absolute inset-0 bg-brand-fuchsia/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/2 p-6 sm:p-8 lg:py-16 flex flex-col justify-center">
+                            <h4 class="text-2xl sm:text-3xl font-extrabold mb-4 text-slate-900 group-hover:text-brand-fuchsia transition-colors">Digital Visiting Card Platform</h4>
+                            <p class="text-slate-600 mb-6 leading-relaxed">
+                                A SaaS solution enabling professionals to create, manage, and share contactless digital business cards via NFC or QR codes. Scaled to support over 10,000 active daily users with analytics tracking for profile views.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="font-mono text-xs font-semibold text-cyan-700 bg-cyan-100 px-3 py-1 rounded-full border border-cyan-200">HTML/CSS</span>
+                                <span class="font-mono text-xs font-semibold text-cyan-700 bg-cyan-100 px-3 py-1 rounded-full border border-cyan-200">Tailwind</span>
+                                <span class="font-mono text-xs font-semibold text-violet-700 bg-violet-100 px-3 py-1 rounded-full border border-violet-200">Python</span>
+                                <span class="font-mono text-xs font-semibold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-200">MongoDB</span>
+                            </div>
+                            <div class="flex gap-4 mt-auto">
+                                <a href="#" class="flex items-center gap-2 text-sm font-bold text-brand-fuchsia hover:text-brand-orange transition-colors">
+                                    <i class="ph ph-arrow-square-out text-xl"></i> Live Demo
+                                </a>
+                                <a href="#" class="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors">
+                                    <i class="ph ph-github-logo text-xl"></i> Source Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="group relative rounded-3xl bg-white border border-slate-200 overflow-hidden flex flex-col lg:flex-row transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(249,115,22,0.2)] hover:border-brand-orange/30" data-aos="fade-up">
+                        <div class="lg:w-1/2 p-2 sm:p-6 lg:p-8 bg-slate-50/50">
+                            <div class="w-full h-64 sm:h-80 rounded-2xl overflow-hidden relative shadow-md">
+                                <img src="https://placehold.co/800x600/e2e8f0/f97316?text=E-Commerce+Dashboard\nAnalytics" alt="E-Commerce Dashboard" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <div class="absolute inset-0 bg-brand-orange/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/2 p-6 sm:p-8 lg:py-16 flex flex-col justify-center">
+                            <h4 class="text-2xl sm:text-3xl font-extrabold mb-4 text-slate-900 group-hover:text-brand-orange transition-colors">E-Commerce Admin Dashboard</h4>
+                            <p class="text-slate-600 mb-6 leading-relaxed">
+                                A comprehensive back-office management system for medium-sized retail operations. Integrated inventory tracking, real-time sales reporting, and automated supplier order generation.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="font-mono text-xs font-semibold text-violet-700 bg-violet-100 px-3 py-1 rounded-full border border-violet-200">Java</span>
+                                <span class="font-mono text-xs font-semibold text-cyan-700 bg-cyan-100 px-3 py-1 rounded-full border border-cyan-200">JavaScript</span>
+                                <span class="font-mono text-xs font-semibold text-cyan-700 bg-cyan-100 px-3 py-1 rounded-full border border-cyan-200">Tailwind</span>
+                            </div>
+                            <div class="flex gap-4 mt-auto">
+                                <a href="#" class="flex items-center gap-2 text-sm font-bold text-brand-orange hover:text-brand-fuchsia transition-colors">
+                                    <i class="ph ph-arrow-square-out text-xl"></i> Live Demo
+                                </a>
+                                <a href="#" class="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors">
+                                    <i class="ph ph-github-logo text-xl"></i> Source Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <!-- Process Section -->
+        <section id="process" class="py-24 bg-white relative z-10 border-y border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+                    <h2 class="text-sm font-mono text-brand-cyan uppercase tracking-widest mb-2 font-bold">How I Work</h2>
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-slate-900">A streamlined process to ensure success</h3>
+                </div>
+
+                <div class="relative">
+                    <!-- Connecting Line (Desktop) -->
+                    <div class="hidden md:block absolute top-12 left-1/6 right-1/6 h-1 bg-gradient-to-r from-brand-violet via-brand-fuchsia to-brand-orange rounded-full z-0 opacity-20"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 relative z-10">
+                        
+                        <!-- Step 1 -->
+                        <div class="flex flex-col items-center text-center group" data-aos="fade-up" data-aos-delay="0">
+                            <div class="w-24 h-24 rounded-full bg-white border-4 border-violet-100 flex items-center justify-center mb-6 group-hover:border-brand-violet shadow-lg transition-all duration-300 group-hover:scale-110">
+                                <i class="ph ph-magnifying-glass text-4xl text-brand-violet"></i>
+                            </div>
+                            <div class="bg-violet-100 text-violet-700 font-mono font-bold text-xs px-3 py-1 rounded-full mb-4">Step 01</div>
+                            <h4 class="text-xl font-bold mb-3 text-slate-900">Discovery & Strategy</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed max-w-xs font-medium">
+                                We dive deep into your business requirements, define technical architecture, and establish a clear roadmap and timeline.
+                            </p>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="flex flex-col items-center text-center group" data-aos="fade-up" data-aos-delay="150">
+                            <div class="w-24 h-24 rounded-full bg-white border-4 border-fuchsia-100 flex items-center justify-center mb-6 group-hover:border-brand-fuchsia shadow-lg transition-all duration-300 group-hover:scale-110">
+                                <i class="ph ph-code text-4xl text-brand-fuchsia"></i>
+                            </div>
+                            <div class="bg-fuchsia-100 text-fuchsia-700 font-mono font-bold text-xs px-3 py-1 rounded-full mb-4">Step 02</div>
+                            <h4 class="text-xl font-bold mb-3 text-slate-900">Development</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed max-w-xs font-medium">
+                                Building the product using modern, scalable technologies. You get regular updates and staged environments for review.
+                            </p>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="flex flex-col items-center text-center group" data-aos="fade-up" data-aos-delay="300">
+                            <div class="w-24 h-24 rounded-full bg-white border-4 border-orange-100 flex items-center justify-center mb-6 group-hover:border-brand-orange shadow-lg transition-all duration-300 group-hover:scale-110">
+                                <i class="ph ph-rocket-launch text-4xl text-brand-orange"></i>
+                            </div>
+                            <div class="bg-orange-100 text-orange-700 font-mono font-bold text-xs px-3 py-1 rounded-full mb-4">Step 03</div>
+                            <h4 class="text-xl font-bold mb-3 text-slate-900">Launch & Handoff</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed max-w-xs font-medium">
+                                Final testing, deployment to production, and full handoff of source code and documentation to your team.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 relative overflow-hidden bg-slate-50">
+            <!-- Background flair -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-violet/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-slate-900">Let's build something <span class="text-brand-fuchsia">together.</span></h2>
+                    <p class="text-slate-600 text-lg font-medium">Have a project in mind? Fill out the form below and I'll get back to you within 24 hours.</p>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-white border border-slate-200 p-6 sm:p-10 rounded-3xl shadow-xl shadow-brand-violet/5" data-aos="fade-up" data-aos-delay="100">
+                    
+                    <!-- Success Message (Hidden by default) -->
+                    <div id="form-success" class="hidden text-center py-12">
+                        <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                            <i class="ph ph-check-circle text-5xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-extrabold text-slate-900 mb-2">Message Sent!</h4>
+                        <p class="text-slate-600">Thank you for reaching out. I'll review your project details and be in touch soon.</p>
+                        <button type="button" id="reset-form-btn" class="mt-8 text-brand-violet hover:text-brand-fuchsia transition-colors underline text-sm font-bold">Send another message</button>
+                    </div>
+
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <!-- Name -->
+                            <div class="space-y-2">
+                                <label for="name" class="text-sm font-bold text-slate-700">Your Name</label>
+                                <input type="text" id="name" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-violet/50 focus:border-brand-violet transition-all shadow-sm" placeholder="John Doe">
+                            </div>
+                            <!-- Email -->
+                            <div class="space-y-2">
+                                <label for="email" class="text-sm font-bold text-slate-700">Email Address</label>
+                                <input type="email" id="email" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-fuchsia/50 focus:border-brand-fuchsia transition-all shadow-sm" placeholder="john@example.com">
+                            </div>
+                        </div>
+
+                        <!-- Budget Dropdown -->
+                        <div class="space-y-2">
+                            <label for="budget" class="text-sm font-bold text-slate-700">Project Budget</label>
+                            <div class="relative">
+                                <select id="budget" required class="w-full appearance-none bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange transition-all cursor-pointer shadow-sm">
+                                    <option value="" disabled selected class="text-slate-400">Select a range</option>
+                                    <option value="< $1k">&lt; $1k</option>
+                                    <option value="$1k - $5k">$1k - $5k</option>
+                                    <option value="$5k - $10k">$5k - $10k</option>
+                                    <option value="$10k+">$10k+</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-brand-orange">
+                                    <i class="ph ph-caret-down font-bold"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project Details -->
+                        <div class="space-y-2">
+                            <label for="details" class="text-sm font-bold text-slate-700">Project Details</label>
+                            <textarea id="details" rows="4" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-violet/50 focus:border-brand-violet transition-all resize-none shadow-sm" placeholder="Briefly describe what you're trying to build..."></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-violet to-brand-fuchsia hover:from-brand-fuchsia hover:to-brand-orange text-white font-extrabold text-lg transition-all shadow-[0_0_20px_rgba(217,70,239,0.3)] hover:shadow-[0_0_30px_rgba(217,70,239,0.5)] flex justify-center items-center gap-2">
+                            Send Request <i class="ph ph-paper-plane-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <!-- Brand -->
+                <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded bg-gradient-to-br from-brand-violet to-brand-fuchsia text-white flex items-center justify-center font-mono font-bold text-xs shadow-sm">
+                        {' '}
+                    </div>
+                    <span class="text-slate-900 font-extrabold tracking-tight">Dev<span class="text-brand-fuchsia">.</span>Portfolio</span>
+                </div>
+                
+                <!-- Copyright -->
+                <p class="text-slate-500 text-sm font-mono font-medium">
+                    &copy; <span id="year"></span> Dev.Portfolio. All rights reserved.
+                </p>
+
+                <!-- Socials -->
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-white hover:bg-slate-900 transition-colors shadow-sm" aria-label="GitHub">
+                        <i class="ph ph-github-logo text-xl"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-white hover:bg-[#0a66c2] transition-colors shadow-sm" aria-label="LinkedIn">
+                        <i class="ph ph-linkedin-logo text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Navbar blur and shrink effect on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.remove('ph-x');
+                menuIcon.classList.add('ph-list');
+            } else {
+                menuIcon.classList.remove('ph-list');
+                menuIcon.classList.add('ph-x');
+            }
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+
+        // Close mobile menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Form Submission Logic
+        const contactForm = document.getElementById('contact-form');
+        const formSuccess = document.getElementById('form-success');
+        const resetBtn = document.getElementById('reset-form-btn');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Collect data if needed
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                budget: document.getElementById('budget').value,
+                details: document.getElementById('details').value
+            };
+            
+            // Simulate API Call / sending
+            const btn = contactForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="ph ph-spinner animate-spin text-xl"></i> Sending...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                contactForm.classList.add('hidden');
+                formSuccess.classList.remove('hidden');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                contactForm.reset();
+            }, 1000);
+        });
+
+        // Reset form to send another message
+        resetBtn.addEventListener('click', () => {
+            formSuccess.classList.add('hidden');
+            contactForm.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
